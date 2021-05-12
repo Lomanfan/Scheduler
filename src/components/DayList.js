@@ -5,10 +5,10 @@ import DayListItem from "./DayListItem";
 
 export default function DayList(props) {
 
-// console.log("*props:", props.days);
+// console.log("DayList-props:", props);
 
   const dayList = props.days.map((day) => {
-    // console.log("*day", day);
+    // console.log("DayList-day", day);
 
     return (
       <DayListItem
