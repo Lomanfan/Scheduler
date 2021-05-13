@@ -1,10 +1,11 @@
-import React, { Fragment } from "react";
-import Header from "components/Appointment/Header";
-import Empty from "components/Appointment/Empty";
-import Show from "components/Appointment/Show";
+import React from "react";
+import Header from "./Header";
+import Empty from "./Empty";
+import Show from "./Show";
 import "./styles.scss";
 
 export default function Appointment(props) {
+  console.log("Appointment-props", props)
 
   return(
   <article className="appointment">
