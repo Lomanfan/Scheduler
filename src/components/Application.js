@@ -39,27 +39,37 @@ const appointments = [
 
 ];
 
-const days = [
-  {
-    id: 1,
-    name: "Monday",
-    spots: 2,
-  },
-  {
-    id: 2,
-    name: "Tuesday",
-    spots: 5,
-  },
-  {
-    id: 3,
-    name: "Wednesday",
-    spots: 0,
-  },
-];
+// const days = [
+//   {
+//     id: 1,
+//     name: "Monday",
+//     spots: 2,
+//   },
+//   {
+//     id: 2,
+//     name: "Tuesday",
+//     spots: 5,
+//   },
+//   {
+//     id: 3,
+//     name: "Wednesday",
+//     spots: 0,
+//   },
+// ];
 
 export default function Application(props) {
-  let [day, setDay] = useState('Monday');
+  const [days, setDays] = useState([]);
+  const [selectedDay, updateSelectedDay] = useState('Monday');
+  // const 
 //  console.log("APPOINTMENT", appointments)
+ console.log("Application-props", props);
+
+  useEffect(() => {
+    const URL = '/api/days';
+    axios.get(URL).then(response => {
+      setDays([...response.data])
+    });
+  }, [])
 
   return (
     <main className="layout">
@@ -73,8 +83,8 @@ export default function Application(props) {
       <nav className="sidebar__menu">
         <DayList
         days={days}
-        day={day}
-        setDay={setDay}
+        selected={selectedDay}
+        setDays={updateSelectedDay}
       />
       </nav>
       <img
