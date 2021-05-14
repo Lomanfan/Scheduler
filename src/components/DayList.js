@@ -16,7 +16,7 @@ console.log("DayList-props:", props);
         name={day.name}
         spots={day.spots}
         selected={day.name === props.day}
-        setDay={props.setDays}
+        setDay={props.setDay}
       />
     );
   });
