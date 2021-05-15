@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import Button from "../Button";
 import InterviewerList from "../InterviewerList";
 
+
 export default function Form(props) {
+  console.log("Form-props", props);
 
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
@@ -28,9 +30,9 @@ export default function Form(props) {
             */
           />
         </form>
-        <InterviewerList 
-          interviewers={props.interviewers} 
-          value={interviewer} 
+        <InterviewerList
+          interviewers={props.interviewers}
+          value={interviewer}
           onChange={setInterviewer} 
         />
       </section>
