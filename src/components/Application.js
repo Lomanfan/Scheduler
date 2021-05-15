@@ -3,7 +3,7 @@ import axios from 'axios';
 import DayList from "./DayList";
 import Appointment from "./Appointment";
 import "./Application.scss";
-import { getAppointmentsForDay, getInterview } from "../helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors";
 
 
 // console.log("------------", { Appointment });
@@ -24,7 +24,7 @@ export default function Application(props) {
   });
 
   //  console.log("APPOINTMENT", appointments)
-  //  console.log("Application-props", props);
+   console.log("Application-props", props);
 
   // const setDays = days => setState({ ...state, days });
   
@@ -34,10 +34,14 @@ export default function Application(props) {
       axios.get(API.GET_APPOINTMENTS),
       axios.get(API.GET_INTERVIEWERS)
     ])
-    .then(responses => {
-      const [days, appointments, interviews] = responses.map(each => each.data)
-      setState(prev => ({ ...prev, days, appointments, interviews}))
-      // console.log("days", days, "appointments", appointments, "interviews", interviews);
+    .then(all => {
+      setState(prev => ({
+        ...prev, 
+           days: all[0].data, 
+           appointments: all[1].data, 
+           interviewers: all[2].data
+          }))
+      // console.log("FROM API: days", days, "appointments", appointments, "interviews", interviews);
     })
     .catch((error) => {
       console.log("Error from API fetching:", error.message)
@@ -48,16 +52,24 @@ export default function Application(props) {
   // const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   const appointments = getAppointmentsForDay(state, state.day);
+        // console.log("App-Check Params", state, state.day);  //hardcoded state from line19 & day:Monday; results in [], [] for following functions
+        // console.log("App-Check getAppointmentsForDay", getAppointmentsForDay(state, state.day)); //[], okay. see above
+        console.log("App-Check appointments", appointments); //[], okay. see above
+
+  const interviewers = getInterviewersForDay(state, state.day);
+        console.log("App-Check interviewers", interviewers);
 
   const schedule = appointments.map((appointment) => {
-    const interview = getInterview(state, appointment.interview);
+    const interview = getInterview(state, appointment.interview);  //seems works, interviewer name is showing
+          console.log("App-Appointment.interview:", appointment.interview);
   
     return (
       <Appointment
         key={appointment.id}
         id={appointment.id}
         time={appointment.time}
-        interview={appointment.interview}
+        interview={interview}
+        interviewers={interviewers}
       />
     );
   });
@@ -100,6 +112,7 @@ export default function Application(props) {
         {/* {dailyAppointments.map(appointment => (<Appointment key={appointment.id} {...appointment} />))} */}
         {schedule}
         <Appointment key="last" time="5pm" />
+
       </section>
     </main>
   );
