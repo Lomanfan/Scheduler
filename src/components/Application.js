@@ -20,6 +20,7 @@ export default function Application(props) {
     day: "Monday",
     days: [],
     appointments: {},
+    bookInterview: {},
     interviewers: {}
   });
 
@@ -62,7 +63,25 @@ export default function Application(props) {
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);  //seems works, interviewer name is showing
           console.log("App-Appointment.interview:", appointment.interview);
+          // TODO:NOTE// SOME appointments.interview is null
   
+  const bookInterview = (id, interview) => {
+        console.log("bookInterview: id, interview", id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return axios.put(`/api/appointments/${id}`, ...appointment)
+    .then(setState({...state, appointments}));
+  }
+
+
     return (
       <Appointment
         key={appointment.id}
@@ -112,7 +131,7 @@ export default function Application(props) {
         {/* {dailyAppointments.map(appointment => (<Appointment key={appointment.id} {...appointment} />))} */}
         {schedule}
         <Appointment key="last" time="5pm" />
-
+        {/* TODO:Mentor question: what does this do? */}
       </section>
     </main>
   );
