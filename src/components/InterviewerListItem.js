@@ -2,9 +2,7 @@ import React from "react";
 import "./InterviewerListItem.scss";
 
 export default function InterviewerListItem(props) {
-  console.log("InterviewerListItem-props", props);
-
-  // const InterviewerListItemClass = `${props.selected ? "interviewers__item--selected" : "interviewers__item"}`;
+  // console.log("InterviewerListItem-props", props);
 
   return (
     <li 
@@ -19,5 +17,4 @@ export default function InterviewerListItem(props) {
       {props.selected && props.name}
     </li>
   );
-  
 }
