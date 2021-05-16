@@ -7,6 +7,7 @@ import Show from "./Show";
 import Form from "./Form";
 import Status from "./Status";
 import Confirm from "./Confirm";
+import Error from "./Error";
 
 
 const EMPTY = "EMPTY";
@@ -15,6 +16,9 @@ const CREATE = "CREATE";
 const SAVING = "SAVING";
 const DELETING = "DELETING";
 const CONFIRM = "CONFIRM";
+const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appointment(props) {
   // console.log("Appointment-props", props)
@@ -25,16 +29,19 @@ export default function Appointment(props) {
   const save = (name, interviewer) => {
     const interview = {
       student: name,
-      interviewer: interviewer
+      interviewer
     };
     transition(SAVING);
-    props.bookInterview(props.id, interview).then(() => transition(SHOW));
+    props.bookInterview(props.id, interview)
+    .then(() => transition(SHOW))
+    .catch((error) => transition(ERROR_SAVE))
   }
 
   const deleteAppointment = (id) => {
     transition(DELETING);
     props.cancelInterview(id)
     .then(() => transition(EMPTY))
+    .catch((error) => transition(ERROR_DELETE))
   }
   
   return(
@@ -49,6 +56,7 @@ export default function Appointment(props) {
       student={props.interview.student}
       interviewer={props.interview.interviewer}
       onDelete={() => {transition(CONFIRM)}}
+      onEdit={() => {transition(EDIT)}}
       />
       )}
     {mode === CREATE && (
@@ -75,7 +83,26 @@ export default function Appointment(props) {
       onConfirm={deleteAppointment}
       />
       )}
-
+      {mode === EDIT && (
+      <Form name={props.interview.student}
+       interviewer={props.interview.interviewer.id}
+       interviewers={props.interviewers}
+       onCancel={back}
+       onSave={save}
+       />
+      )}
+      {mode === ERROR_SAVE && (
+      <Error 
+      message="Save Error. Please contact us @ 888-8888." 
+      onClose={back}
+      />
+      )}
+      {mode === ERROR_DELETE && (
+      <Error 
+      message="Delete Error. Please contact us @ 888-8888." 
+      onClose={back}
+      />
+      )}
     </article>
   );
 };
