@@ -1,6 +1,4 @@
-
 import { useState } from 'react';
-
 
 export default function useVisualMode(initial) {
 
@@ -15,6 +13,7 @@ export default function useVisualMode(initial) {
     if (history.length > 1) {    //history >=1;
       const newHistory = history.slice(0, history.length - 1);
       setHistory(() => [...newHistory]);
+      // TODO//
     }
   };
 
