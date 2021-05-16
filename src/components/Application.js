@@ -13,26 +13,27 @@ export default function Application(props) {
     bookInterview,
     cancelInterview
   } = useApplicationData();
- 
+  
         //  console.log("Application-props", props);
-  const appointments = getAppointmentsForDay(state, state.day);
+
+  const interviewers = getInterviewersForDay(state, state.day);
+        // console.log("App-Check interviewers", interviewers);
+  // const appointments = getAppointmentsForDay(state, state.day);
         // console.log("App-Check Params", state, state.day);  //hardcoded state from line19 & day:Monday; results in [], [] for following functions
         // console.log("App-Check getAppointmentsForDay", getAppointmentsForDay(state, state.day)); //[], okay. see above
         // console.log("App-Check appointments", appointments); //[], okay. see above
 
-  const interviewers = getInterviewersForDay(state, state.day);
-        // console.log("App-Check interviewers", interviewers);
-
-  const schedule = appointments.map((appointment) => {
-    const interview = getInterview(state, appointment.interview);  //seems works, interviewer name is showing
+  const appointments = getAppointmentsForDay(state, state.day).map((appointment) => {
+    // const interview = getInterview(state, appointment.interview);  //seems works, interviewer name is showing
           // console.log("App-Appointment.interview:", appointment.interview);
           // TODO:NOTE// SOME appointments.interview is null
     return (
       <Appointment
         key={appointment.id}
-        id={appointment.id}
+        {...appointment}   //added
+        // id={appointment.id}
         time={appointment.time}
-        interview={interview}
+        interview={getInterview(state, appointment.interview)}
         interviewers={interviewers}
         bookInterview={bookInterview}
         cancelInterview={cancelInterview}
@@ -64,7 +65,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {/* {dailyAppointments.map(appointment => (<Appointment key={appointment.id} {...appointment} />))} */}
-        {schedule}
+        {appointments}
         <Appointment key="last" time="5pm" />
         TODO
       </section>
