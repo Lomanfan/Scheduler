@@ -5,13 +5,13 @@ import "./Application.scss";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors";
 import useApplicationData from "hooks/useApplicationData";
 
-// console.log("------------", { Appointment });
 
 export default function Application(props) {
   const {
     state,
     setDay,
-    bookInterview
+    bookInterview,
+    cancelInterview
   } = useApplicationData();
  
         //  console.log("Application-props", props);
@@ -35,6 +35,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
@@ -65,6 +66,7 @@ export default function Application(props) {
         {/* {dailyAppointments.map(appointment => (<Appointment key={appointment.id} {...appointment} />))} */}
         {schedule}
         <Appointment key="last" time="5pm" />
+        TODO
       </section>
     </main>
   );
