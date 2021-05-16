@@ -5,14 +5,13 @@ import Show from "./Show";
 import "./styles.scss";
 import useVisualMode from "hooks/useVisualMode";
 import Form from "./Form";
-import bookInterview from "../Application";
+import Status from "./Status";
 
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
-
 
 export default function Appointment(props) {
   // console.log("Appointment-props", props)
@@ -27,15 +26,8 @@ export default function Appointment(props) {
       interviewer: interviewer
     };
     transition(SAVING);
-    props.bookInterview(props.id, interviewer).then(() => transition(SHOW));
+    props.bookInterview(props.id, interview).then(() => transition(SHOW));
   }
-  //TODO: 2. save function/To be passed to the Form component (see next below); 
-  //TODO: 3. Form should capture the name and interviewer and pass them to props.onSave as arguments.
-  //TODO: 4. then create a new interview object to be passed to props.bookInterview.
-  //TODO: 5. transition to the SHOW mode after calling props.bookInterview.
-  //TODO: 6. update the save action to show the SAVING indicator before calling props.bookInterview.
-  //TODO: 7. show Status component when mode === SAVING
-
 
   return(
   <article className="appointment">
@@ -52,11 +44,16 @@ export default function Appointment(props) {
     )}
     {mode === CREATE && (
       <Form
-        onCancel={back}
-        interviewers={props.interviewers}
+      interviewers={props.interviewers}
+      onSave={save}
+      onCancel={back}
       />
     )}
-  
+    {mode === SAVING && (
+      <Status 
+      message="Saving..."
+      />
+    )}
   </article>
 
   );
