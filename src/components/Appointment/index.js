@@ -44,13 +44,13 @@ export default function Appointment(props) {
   }
   
   return(
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
     <Header time={props.time}/>
     {/* {props.interview ? <Show student={props.interview.student} interviewer={props.interview.interviewer}/> : <Empty />} */}
 
     {/* {mode === EMPTY && <Empty onAdd={() => console.log("Clicked onAdd")} />} */}
     {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-    {mode === SHOW && (
+    {mode === SHOW (
       <Show
       student={props.interview.student}
       interviewer={props.interview.interviewer}
@@ -67,12 +67,12 @@ export default function Appointment(props) {
       )}
     {mode === SAVING && (
       <Status 
-      message="Saving..."
+      message="Saving"
       />
       )}
     {mode === DELETING && (
       <Status 
-      message="Deleting..."
+      message="Deleting"
       />
       )}
       {mode === CONFIRM && (
