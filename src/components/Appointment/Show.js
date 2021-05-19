@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Show(props) {
- console.log("Show-props", props)
+//  console.log("Show-props", props)
 
  if(props.interviewer) {
   return(

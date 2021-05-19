@@ -23,7 +23,7 @@ export function getInterview(state, interview) {
     interviewer: state.interviewers[interviewerId]
   };
 
-  console.log("interviewDetails", interviewDetails);
+  // console.log("interviewDetails", interviewDetails);
 
   return interviewDetails;
 };
@@ -36,7 +36,7 @@ export function getInterviewersForDay(state, day) {
   }
   const interviewers = selectedDay.interviewers.map(id => state.interviewers[id]);
   
-  console.log("getInterviewersForDay/interviewers", interviewers);
+  // console.log("getInterviewersForDay/interviewers", interviewers);
   
   return interviewers;
 }

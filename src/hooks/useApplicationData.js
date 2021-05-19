@@ -27,7 +27,7 @@ export default function useApplicationData() {
       axios.get(API.GET_INTERVIEWERS)
     ])
     .then(all => {
-      console.log("API FETCH RESULT", all);
+      // console.log("API FETCH RESULT", all);
       setState(prev => ({
         ...prev, 
            days: all[0].data, 
@@ -64,7 +64,7 @@ export default function useApplicationData() {
 
 
   const bookInterview = (id, interview) => {
-        console.log("bookInterview: id, interview", id, interview);
+        // console.log("bookInterview: id, interview", id, interview);
 
     const availableSpot = state.appointments[id].interview === null;
 
@@ -80,7 +80,7 @@ export default function useApplicationData() {
 
     return axios.put(`/api/appointments/${id}`, appointment) //TODO//
     .then((response) => {
-      console.log("Added new appointments", response);
+      // console.log("Added new appointments", response);
       // setState({...state, appointments, days: updateSpots(state, state.day)})
       availableSpot && updateSpots(id, false);
       setState({...state, appointments});
@@ -102,14 +102,13 @@ export default function useApplicationData() {
 
     return axios.delete(`/api/appointments/${id}`, appointment) //TODO//
     .then((response) => {
-      console.log("Updated appointments", response);
+      // console.log("Updated appointments", response);
       // setState({...state, appointments, days: updateSpots(state, state.day)})
 
       updateSpots(id, true);
       setState({...state, appointments})
 
-
-      console.log("State after delete:", state);
+      // console.log("State after delete:", state);
     })
     // .catch(error =>
     // console.log("Appointment cancelling error:", error));
