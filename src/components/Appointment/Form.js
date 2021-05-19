@@ -4,15 +4,30 @@ import InterviewerList from "../InterviewerList";
 
 
 export default function Form(props) {
-  console.log("Form-props", props);
+  // console.log("Form-props", props);
 
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [error, setError] = useState("");
 
   const reset = () => {
     setName("");
     setInterviewer(null);
     props.onCancel()
+  }
+
+  function validate() {
+    if (name === "") {
+      setError("Student name cannot be blank");
+      return;
+    }
+  
+    if (!interviewer) {
+      setError("Please select an interviewer");
+      return;
+    }
+    setError("");
+    props.onSave(name, interviewer);
   }
 
   return(
@@ -21,15 +36,15 @@ export default function Form(props) {
         <form autoComplete="off" onSubmit={event => event.preventDefault()}>
           <input
             className="appointment__create-input text--semi-bold"
+            name="name"
             value={name}
             type="text"
             placeholder="Enter Student Name"
-            onChange={(event) => setName(event.target.value)}
-            /*
-              This must be a controlled component
-            */
+            onChange={event => setName(event.target.value)}
+            data-testid="student-name-input"
           />
         </form>
+        <section className="appointment__validation">{error}</section>
         <InterviewerList
           interviewers={props.interviewers}
           value={interviewer}
@@ -39,11 +54,10 @@ export default function Form(props) {
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={reset}>Cancel</Button>
-          <Button confirm onClick={() => props.onSave(name, interviewer)}>Save</Button>
+          {/* <Button confirm onClick={() => props.onSave(name, interviewer)}>Save</Button> */}
+          <Button confirm onClick={validate}>Save</Button>
         </section>
       </section>
     </main>
-
   );
-
 }
