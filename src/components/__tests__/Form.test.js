@@ -1,6 +1,6 @@
 import React from "react";
 
-import {  render, cleanup, fireEvent } from "@testing-library/react";
+import { render, cleanup, fireEvent } from "@testing-library/react";
 
 import Form from "components/Appointment/Form";
 
@@ -11,8 +11,8 @@ describe("Form", () => {
     {
       id: 1,
       name: "Sylvia Palmer",
-      avatar: "https://i.imgur.com/LpaY82x.png"
-    }
+      avatar: "https://i.imgur.com/LpaY82x.png",
+    },
   ];
 
   it("renders without student name if not provided", () => {
@@ -30,11 +30,11 @@ describe("Form", () => {
   });
 
   it("validates that the student name is not blank", () => {
-       /* 1. Create the mock onSave function */
+    /* 1. Create the mock onSave function */
     const onSave = jest.fn();
-       /* 2. Render the Form with interviewers and the onSave mock function passed as an onSave prop, the name prop should be blank or undefined */
+    /* 2. Render the Form with interviewers and the onSave mock function passed as an onSave prop, the name prop should be blank or undefined */
     const { getByText } = render(
-       /* 3. Click the save button */
+      /* 3. Click the save button */
       <Form interviewers={interviewers} onSave={onSave} />
     );
 
@@ -46,9 +46,8 @@ describe("Form", () => {
 
   it("can successfully save after trying to submit an empty student name", () => {
     const onSave = jest.fn();
-    const { getByText, getByPlaceholderText, queryByText, getByAltText } = render(
-      <Form interviewers={interviewers} onSave={onSave} />
-    );
+    const { getByText, getByPlaceholderText, queryByText, getByAltText } =
+      render(<Form interviewers={interviewers} onSave={onSave} />);
 
     fireEvent.click(getByText("Save"));
 
@@ -56,7 +55,7 @@ describe("Form", () => {
     expect(onSave).not.toHaveBeenCalled();
 
     fireEvent.change(getByPlaceholderText("Enter Student Name"), {
-      target: { value: "Lydia Miller-Jones" }
+      target: { value: "Lydia Miller-Jones" },
     });
 
     fireEvent.click(getByAltText("Sylvia Palmer"));
@@ -82,7 +81,7 @@ describe("Form", () => {
     fireEvent.click(getByText("Save"));
 
     fireEvent.change(getByPlaceholderText("Enter Student Name"), {
-      target: { value: "Lydia Miller-Jones" }
+      target: { value: "Lydia Miller-Jones" },
     });
 
     fireEvent.click(getByText("Cancel"));
@@ -93,4 +92,4 @@ describe("Form", () => {
 
     expect(onCancel).toHaveBeenCalledTimes(1);
   });
-}); 
+});
