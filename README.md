@@ -3,13 +3,13 @@
 Interview Scheduler is a single page application (SPA) built using React with the latest tools and technologies. Data is persisted by the API server using a PostgreSQL database. The client application communicates with an API server over HTTP, using the JSON format to provide a realtime experience.
 
 Appointment Schedule
-!["Schedule"](https://github.com/Lomanfan/.jpg)
+!["Schedule"](https://github.com/Lomanfan/scheduler/blob/master/docs/schedule.png)
 
 Cancel/Delete Confirmation
-!["CancelConfirmation"](https://github.com/Lomanfan/.jpg)
+!["CancelConfirmation"](https://github.com/Lomanfan/scheduler/blob/master/docs/cancelInterview.png)
 
 Delete Indicator
-!["DeleteIndicator"](https://github.com/Lomanfan/.jpg)
+!["DeleteIndicator"](https://github.com/Lomanfan/scheduler/blob/master/docs/deleteIndicator.png)
 
 ## Project Features
 
